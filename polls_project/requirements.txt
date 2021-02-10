@@ -1,0 +1,4 @@
+django
+django-allauth
+gunicorn
+psycopg2-binary

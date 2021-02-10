@@ -1,0 +1,22 @@
+<div class="modal" id="modal-edit-{{ topic.id }}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="notification">
+            <p>Thema bearbeiten:</p>
+            <input class="input mb-4" name="topic_input" type="text" form="topic-edit-{{ topic.id }}" maxlength="250"
+                value="{{ topic.title }}" />
+            <input type="hidden" name="topic_id" type="number" form="topic-edit-{{ topic.id }}" value={{ topic.id }} />
+            <form action="/topic-edit" method="post" id="topic-edit-{{ topic.id }}">
+                {% csrf_token %}
+                <div class="buttons has-addons is-right">
+                    <input class="button is-primary is-pulled-right" type="submit" value="Aktualisieren"
+                        aria-label="Aktualisieren">
+                    <a class="button is-light modal-cancel">
+                        Abbrechen
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>

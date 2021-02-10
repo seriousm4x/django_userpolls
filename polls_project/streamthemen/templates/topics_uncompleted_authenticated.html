@@ -1,0 +1,63 @@
+<div class="column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"
+    id="{{ topic.id }}-container">
+    <article class="message is-dark">
+        <div class="message-header">
+            <p class="mx-2">
+                {% if topic.user_created.socialaccount_set.all.0.extra_data.login %}
+                {{ topic.user_created.socialaccount_set.all.0.extra_data.login }}
+                {% elif topic.user_created.socialaccount_set.all.0.extra_data.username %}
+                {{ topic.user_created }}#{{ topic.user_created.socialaccount_set.all.0.extra_data.discriminator }}
+                {% endif %}
+            </p>
+            {% if user == topic.user_created %}
+            <div class="field has-addons is-pulled-right modify-buttons">
+                <p class="control px-1">
+                    <button class="icon has-background-warning has-text-dark modal-button"
+                        data-target="modal-edit-{{ topic.id }}">
+                        <i class="fas fa-circle fa-pen"></i>
+                    </button>
+                    {% include 'modal-edit.html' %}
+                </p>
+                <p class="control px-1">
+                    <button class="icon has-background-danger has-text-dark modal-button"
+                        data-target="modal-delete-{{ topic.id }}">
+                        <i class="fas fa-circle fa-trash-alt"></i>
+                    </button>
+                    {% include 'modal-delete.html' %}
+                </p>
+            </div>
+            {% endif %}
+        </div>
+        <div class="message-body is-clearfix">
+            <div class="is-1 vote-buttons is-pulled-left mr-5">
+                {% if topic.id in user_upvotes %}
+                <button class="icon vote-up selected" id="vote-up-{{ topic.id }}" name="upvote">
+                    <i class="fas fa-2x fa-sort-up"></i>
+                </button>
+                {% else %}
+                <button class="icon vote-up" id="vote-up-{{ topic.id }}" name="upvote">
+                    <i class="fas fa-2x fa-sort-up"></i>
+                </button>
+                {% endif %}
+                <span class="has-text-weight-bold" id="totalvotes-{{ topic.id }}">{{ topic.total_votes }}</span>
+                {% if topic.id in user_downvotes %}
+                <button class="icon vote-down selected" id="vote-down-{{ topic.id }}" name="downvote">
+                    <i class="fas fa-2x fa-sort-down"></i>
+                </button>
+                {% else %}
+                <button class="icon vote-down" id="vote-down-{{ topic.id }}" name="downvote">
+                    <i class="fas fa-2x fa-sort-down"></i>
+                </button>
+                {% endif %}
+            </div>
+            <div class="is-1 is-clipped">
+                <p class="topic-text" id="text-{{ topic.id }}">
+                    {{ topic.title }}
+                </p>
+                <p>
+                    <i>{{ topic.created_at }}</i>
+                </p>
+            </div>
+        </div>
+    </article>
+</div>

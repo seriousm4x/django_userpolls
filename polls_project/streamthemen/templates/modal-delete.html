@@ -1,0 +1,20 @@
+<div class="modal" id="modal-delete-{{ topic.id }}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <div class="notification">
+            <p class="is-size-3 has-text-danger">Wirklich löschen?</p>
+            <input type="hidden" name="topic_id" type="number" form="topic-delete-{{ topic.id }}"
+                value={{ topic.id }} />
+            <form action="/topic-delete" method="post" id="topic-delete-{{ topic.id }}">
+                {% csrf_token %}
+                <div class="buttons has-addons is-right">
+                    <input class="button is-primary is-pulled-right" type="submit" value="Löschen" aria-label="Löschen">
+                    <a class="button is-light modal-cancel">
+                        Abbrechen
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>

@@ -1,0 +1,33 @@
+<div class="column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"
+    id="{{ topic.id }}-container">
+    <article class="message is-dark">
+        <div class="message-header">
+            <p class="mx-2">
+                {% if topic.user_created.socialaccount_set.all.0.extra_data.login %}
+                {{ topic.user_created.socialaccount_set.all.0.extra_data.login }}
+                {% elif topic.user_created.socialaccount_set.all.0.extra_data.username %}
+                {{ topic.user_created }}#{{ topic.user_created.socialaccount_set.all.0.extra_data.discriminator }}
+                {% endif %}
+            </p>
+        </div>
+        <div class="message-body is-clearfix">
+            <div class="is-1 vote-buttons is-pulled-left mr-5">
+                <button class="icon vote-up" id="vote-up-{{ topic.id }}" name="upvote">
+                    <i class="fas fa-2x fa-sort-up"></i>
+                </button>
+                <span class="has-text-weight-bold" id="totalvotes-{{ topic.id }}">{{ topic.total_votes }}</span>
+                <button class="icon vote-down" id="vote-down-{{ topic.id }}" name="downvote">
+                    <i class="fas fa-2x fa-sort-down"></i>
+                </button>
+            </div>
+            <div class="is-1 is-clipped">
+                <p class="topic-text" id="text-{{ topic.id }}">
+                    {{ topic.title }}
+                </p>
+                <p>
+                    <i>{{ topic.created_at }}</i>
+                </p>
+            </div>
+        </div>
+    </article>
+</div>

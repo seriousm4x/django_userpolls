@@ -1,0 +1,9 @@
+[submodule "polls_project/streamthemen/static/bulma"]
+	path = polls_project/streamthemen/static/bulma
+	url = https://github.com/jgthms/bulma.git
+[submodule "polls_project/streamthemen/static/fontawesome"]
+	path = polls_project/streamthemen/static/fontawesome
+	url = https://github.com/FortAwesome/Font-Awesome.git
+[submodule "polls_project/streamthemen/static/css/bulma"]
+	path = polls_project/streamthemen/static/css/bulma
+	url = https://github.com/jgthms/bulma.git

@@ -1,0 +1,152 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Themenvorschläge fürn schtreems0r</title>
+	<link rel="icon" type="image/png" href={% static 'images/favico.png' %}>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/bulma-prefers-dark.min.css' %}" />
+</head>
+
+<body>
+	<!-- Website Title -->
+	<section class="hero is-primary mb-6">
+		<div class="hero-body">
+			<div class="container">
+				<div class="columns is-desktop is-vcentered">
+					{% if not user.is_authenticated %}
+					<div class="column">
+						<h1 class="title is-1">
+							<a href="/" class="has-text-white">Themenvorschläge</a>
+						</h1>
+						<h2 class="subtitle">
+							<strong>Einloggen</strong>, um Vorschläge zu erstellen!
+						</h2>
+					</div>
+					<div class="column">
+						<p class="buttons">
+							<a class="button" href="{% provider_login_url 'discord' %}">
+								<span class="icon">
+									<i class="fab fa-discord"></i>
+								</span>
+								<span>
+									Login mit Discord
+								</span>
+							</a>
+							<a class="button" href="{% provider_login_url 'github' %}">
+								<span class="icon">
+									<i class="fab fa-github"></i>
+								</span>
+								<span>
+									Login mit GitHub
+								</span>
+							</a>
+						</p>
+					</div>
+					{% else %}
+					<div class="column">
+						<h1 class="title is-1">
+							<a href="/" class="has-text-white">Themenvorschläge</a>
+						</h1>
+						<h2 class="subtitle">
+							<span onclick="wellcum()">Well-cum</span>,
+							<strong>{{ display_user_name }}</strong>
+							<audio id="audio" src="{% static 'audio/wellcum.mp3' %}"></audio>
+						</h2>
+					</div>
+					<div class="column">
+						<div class="field is-grouped">
+							<div class="control">
+								<a class="button modal-button" data-target="modal-add">
+									<span class="icon">
+										<i class="fas fa-plus"></i>
+									</span>
+									<span>
+										Vorschlag hinzufügen
+									</span>
+								</a>
+								<div class="modal" id="modal-add">
+									<div class="modal-background"></div>
+									<div class="modal-content">
+										<div class="notification">
+											<p>Neues Thema hinzufügen:</p>
+											<input class="input mb-4" name="topic_input" type="text" form="topic-add"
+												maxlength="250" autofocus></input>
+											<form action="/topic-add" method="post" id="topic-add">
+												{% csrf_token %}
+												<div class="field is-grouped is-grouped-right">
+													<p class="control">
+														<input class="button is-primary is-pulled-right" type="submit"
+															value="Hinzufügen" aria-label="Hinzufügen">
+													</p>
+													<p class="control">
+														<a class="button is-light modal-cancel">
+															Abbrechen
+														</a>
+													</p>
+												</div>
+											</form>
+										</div>
+									</div>
+									<button class="modal-close is-large" aria-label="close"></button>
+								</div>
+							</div>
+							<div class="control">
+								<form method="post" action="{% url 'account_logout' %}">
+									{% csrf_token %}
+									{% if redirect_field_value %}
+									<input type="hidden" name="{{ redirect_field_name }}"
+										value="{{ redirect_field_value }}" />
+									{% endif %}
+									<button type="submit" class="button">
+										<span class="icon">
+											<i class="fas fa-sign-out-alt"></i>
+										</span>
+										<span>
+											Abmelden
+										</span>
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Topics -->
+	<section class="section">
+		<div class="columns is-vcentered is-multiline">
+			{% if not user.is_authenticated %}
+			<!-- Uncompleted Topics -->
+			{% for topic in uncompleted_topics %}
+			{% include 'topics_uncompleted.html' %}
+			{% endfor %}
+			{% else %}
+			<!-- Uncompleted Topics Authenticated -->
+			{% for topic in uncompleted_topics %}
+			{% include 'topics_uncompleted_authenticated.html' %}
+			{% endfor %}
+			{% endif %}
+			<!-- Completed Topics -->
+			{% for topic in completed_topics %}
+			{% include 'topics_completed.html' %}
+			{% endfor %}
+		</div>
+	</section>
+</body>
+
+<footer>
+	<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+	<script src="{% static 'js/modal.js' %}"></script>
+</footer>
+
+</html>
