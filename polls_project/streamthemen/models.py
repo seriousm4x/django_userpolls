@@ -23,3 +23,9 @@ class Topic(models.Model):
         User, related_name="downvotes", blank=True)
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=time_now)
+
+
+class Emote(models.Model):
+    emote_id = models.SlugField(null=False, blank=False)
+    code = models.SlugField(null=False, blank=False)
+    provider = models.SlugField(null=False, blank=False)

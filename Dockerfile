@@ -4,6 +4,8 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /opt/app
 COPY polls_project/ .
+COPY polls_project/ .
+
 
 RUN apk update && \
     apk --no-cache add gcc musl-dev python3-dev libffi-dev openssl-dev cargo postgresql-dev && \
@@ -13,3 +15,5 @@ RUN apk update && \
 	rm -rf /var/cache/apk/* && \
 	rm -rf /root/.cache && \
 	rm -rf /root/.cargo
+
+ENTRYPOINT ["./run.sh"]

@@ -24,6 +24,7 @@ def index(request):
         context["user_downvotes"] = [i["id"] for i in Topic.objects.filter(
             users_downvoted=request.user.id).values("id")]
 
+        # get login provider for user
         user_provider = SocialAccount.objects.filter(
             user=request.user.id).get()
 

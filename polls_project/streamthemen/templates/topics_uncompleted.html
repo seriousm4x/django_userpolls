@@ -22,7 +22,7 @@
             </div>
             <div class="is-1 is-clipped">
                 <p class="topic-text" id="text-{{ topic.id }}">
-                    {{ topic.title }}
+                    {% include "emote-message.html" %}
                 </p>
                 <p>
                     <i>{{ topic.created_at }}</i>
