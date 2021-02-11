@@ -43,6 +43,3 @@ def match_emote(value):
         else:
             final_html += f"{word} "
     return final_html
-
-
-+=
