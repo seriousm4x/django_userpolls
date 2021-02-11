@@ -1,3 +1,5 @@
+{% load custom_tags %}
+
 <div class="column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd"
     id="{{ topic.id }}-container">
     <article class="message is-dark">
@@ -52,7 +54,7 @@
             </div>
             <div class="is-1 is-clipped">
                 <p class="topic-text is-flex" id="text-{{ topic.id }}">
-                    {% include "emote-message.html" %}
+                    {{ topic.title|match_emote|safe }}
                 </p>
                 <p>
                     <i>{{ topic.created_at }}</i>
